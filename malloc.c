@@ -97,25 +97,3 @@ void* malloc(size_t size) {
     block->free = 0;
     return (char*) block + sizeof(block_t);
 }
-
-void main(){
-    void* ptr1 = malloc(50);
-    if (ptr1 == NULL) {
-        printf("Test malloc failed\n");
-        return;
-    }
-    memset(ptr1, 1, 50); // Initialize memory
-    free(ptr1);
-    printf("Test malloc and free passed\n");
-
-  
-    memset(ptr1, 1, 50); // Initialize memory
-    ptr1 = realloc(ptr1, 100); // Resize
-    if (ptr1 == NULL) {
-        printf("Test realloc failed\n");
-        return;
-    }
-    memset(ptr1, 2, 100); // Initialize resized memory
-    free(ptr1);
-    printf("Test realloc passed\n");
-}

@@ -1,13 +1,19 @@
 CC = gcc
-CFLAGS = -g -Wall
+CFLAGS = -Wall -Wextra -g
+TARGET = tests
 
-all: test_malloc test_malloc_with_manager
+# Files
+SRCS = tests.c malloc.c
+HEADERS = malloc_header.h
 
-test_malloc: tests.c
-	$(CC) $(CFLAGS) -o test_malloc tests.c
+# Create executable from source files
+$(TARGET): $(SRCS) $(HEADERS)
+	$(CC) $(CFLAGS) -o $(TARGET) $(SRCS)
 
-test_malloc_with_manager: malloc.c tests.c
-	$(CC) $(CFLAGS) -o test_malloc_with_manager malloc.c tests.c
-
+# Clean up generated files
 clean:
-	rm -f test_malloc test_malloc_with_manager
+	rm -f $(TARGET) *.o
+
+# Run tests after building
+run: $(TARGET)
+	./$(TARGET)
